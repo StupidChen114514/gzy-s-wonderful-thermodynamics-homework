@@ -47,7 +47,9 @@ class ServerManager:
         self.port = port
         self.process = None
         self.pid = None
-        self.work_dir = os.path.dirname(os.path.abspath(__file__))
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.work_dir = os.path.dirname(self.script_dir)
+        self.src_dir = os.path.join(self.work_dir, 'src')
         
     def check_python_version(self):
         """检查 Python 版本"""
@@ -71,9 +73,10 @@ class ServerManager:
     
     def find_index_file(self):
         """查找 index.html 文件"""
-        if os.path.exists('index.html'):
-            return True, os.path.abspath('index.html')
-        return False, "未找到 index.html 文件"
+        index_path = os.path.join(self.src_dir, 'index.html')
+        if os.path.exists(index_path):
+            return True, os.path.abspath(index_path)
+        return False, "未找到 index.html 文件，请确保 src/ 目录下存在该文件"
     
     def start_server(self):
         """启动 HTTP 服务器"""
@@ -83,7 +86,7 @@ class ServerManager:
             cmd = [sys.executable, '-m', 'http.server', str(self.port), '-b', self.host]
             
             print("[INFO] 启动命令: %s" % ' '.join(cmd))
-            print("[INFO] 工作目录: %s" % self.work_dir)
+            print("[INFO] 工作目录: %s" % self.src_dir)
             
             # 关键改进：使用 PIPE 确保主进程持有句柄
             if system == 'Windows':
@@ -94,7 +97,7 @@ class ServerManager:
             # 不使用 DETACHED_PROCESS，以便能够管理子进程
             self.process = subprocess.Popen(
                 cmd,
-                cwd=self.work_dir,
+                cwd=self.src_dir,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 creationflags=creationflags if system == 'Windows' else 0,
