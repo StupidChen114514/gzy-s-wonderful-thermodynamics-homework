@@ -26,8 +26,10 @@ gzy/
 │   ├── app.js               # 应用逻辑
 │   └── styles.css           # 样式文件
 ├── scripts/                  # Python脚本
+│   ├── server_gui.py        # GUI控制面板（一键启动/停止）
 │   ├── start_server_v2.py   # 服务器启动脚本
 │   └── stop_server_v2.py    # 服务器停止脚本
+├── 启动控制面板.bat          # Windows快捷启动脚本
 ├── docs/                     # 项目文档
 └── README.md                # 项目说明文件
 ```
@@ -39,7 +41,16 @@ gzy/
 - Python 3.6 或更高版本
 - 现代浏览器（Chrome、Firefox、Edge、Safari）
 
-### 安装与运行
+### 一键启动（推荐方式）
+
+**Windows 用户**：双击 `启动控制面板.bat` 即可打开控制面板，点击"启动服务器"按钮即可运行。
+
+**所有平台**：直接运行 Python 脚本：
+```bash
+python scripts/server_gui.py
+```
+
+### 手动启动（可选）
 
 1. 克隆仓库
 ```bash
@@ -56,6 +67,10 @@ python scripts/start_server_v2.py
 ```
 http://localhost:8000
 ```
+
+### 停止服务
+
+在控制面板中点击"停止服务器"按钮即可完全停止服务。
 
 ### 使用方法
 
