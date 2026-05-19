@@ -1,0 +1,45 @@
+# Git 配置文件
+
+# 设置默认分支名
+[init]
+	defaultBranch = main
+
+# 提交模板（可选）
+# [commit]
+#	template = .gitmessage.txt
+
+# 推送时只推送当前分支
+[push]
+	default = current
+
+# 使用 rebase 合并
+[pull]
+	rebase = false
+
+# 记住用户名密码（仅适用于 HTTPS）
+[credential]
+	helper = store
+
+# 编码设置
+[core]
+	autocrlf = input
+	quotepath = false
+
+# 颜色设置
+[color]
+	ui = auto
+
+# 差异与合并工具
+[diff]
+	tool = vscode
+[merge]
+	tool = vscode
+
+# 快捷命令
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	unstage = reset HEAD --
+	last = log -1 HEAD

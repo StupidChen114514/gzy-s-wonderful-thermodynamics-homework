@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空气等熵压缩过程 - 交互式图形应用</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部标题栏 -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <span class="icon">🔬</span>
+                    空气等熵压缩过程
+                </h1>
+                <p class="subtitle">交互式热力学分析工具</p>
+            </div>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 左侧控制面板 -->
+            <aside class="control-panel">
+                <div class="panel-card">
+                    <h2 class="panel-title">参数控制</h2>
+                    
+                    <!-- 初始温度 -->
+                    <div class="control-group">
+                        <label for="temperature">
+                            <span class="label-text">初始温度</span>
+                            <span class="label-value" id="temperature-value">300 K</span>
+                        </label>
+                        <input type="range" id="temperature" min="200" max="500" value="300" step="1">
+                    </div>
+
+                    <!-- 初始压力 -->
+                    <div class="control-group">
+                        <label for="pressure">
+                            <span class="label-text">初始压力</span>
+                            <span class="label-value" id="pressure-value">101.33 kPa</span>
+                        </label>
+                        <input type="range" id="pressure" min="50" max="200" value="101.33" step="0.1">
+                    </div>
+
+                    <!-- 压缩比 -->
+                    <div class="control-group">
+                        <label for="compression">
+                            <span class="label-text">压缩比</span>
+                            <span class="label-value" id="compression-value">4:1</span>
+                        </label>
+                        <input type="range" id="compression" min="2" max="10" value="4" step="0.1">
+                    </div>
+
+                    <!-- 比热容模式 -->
+                    <div class="control-group">
+                        <label for="mode" class="label-text">显示模式</label>
+                        <select id="mode">
+                            <option value="both">同时显示</option>
+                            <option value="constant">仅常数比热容</option>
+                            <option value="variable">仅变比热容</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 状态信息 -->
+                <div class="panel-card info-card">
+                    <h2 class="panel-title">状态信息</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">初始比容</span>
+                            <span class="info-value" id="initial-v">0.850 m³/kg</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">终点压力(常数)</span>
+                            <span class="info-value" id="final-p-constant">705.7 kPa</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">终点压力(变比)</span>
+                            <span class="info-value" id="final-p-variable">527.0 kPa</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="panel-card actions-card">
+                    <h2 class="panel-title">操作</h2>
+                    <div class="button-group">
+                        <button id="save-config" class="btn btn-primary">
+                            <span class="btn-icon">💾</span>
+                            保存配置
+                        </button>
+                        <button id="export-image" class="btn btn-secondary">
+                            <span class="btn-icon">📥</span>
+                            导出图像
+                        </button>
+                        <button id="reset" class="btn btn-outline">
+                            <span class="btn-icon">🔄</span>
+                            重置参数
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 右侧图形显示区 -->
+            <section class="graph-area">
+                <div class="graph-container" id="graph-container">
+                    <canvas id="main-canvas"></canvas>
+                    <div class="graph-overlay" id="graph-overlay">
+                        <div class="upload-hint">
+                            <div class="upload-icon">📁</div>
+                            <p class="upload-text">双击加载本地图像</p>
+                        </div>
+                    </div>
+                    <input type="file" id="file-input" accept="image/*" style="display: none;">
+                </div>
+                
+                <!-- 图例 -->
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="legend-color constant"></span>
+                        <span class="legend-text">常数比热容 (k=1.4)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color variable"></span>
+                        <span class="legend-text">变比热容</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color start"></span>
+                        <span class="legend-text">起点 (p₀, v₀)</span>
+                    </div>
+                </div>
+
+                <!-- 说明信息 -->
+                <div class="info-footer">
+                    <p class="tip">💡 提示：调节左侧参数观察实时变化，双击画布可加载对比图像</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- 通知提示 -->
+        <div class="notification" id="notification"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
