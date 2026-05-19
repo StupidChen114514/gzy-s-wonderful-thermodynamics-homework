@@ -36,8 +36,14 @@ import time
 # 配置常量
 DEFAULT_PORT = 8000
 DEFAULT_HOST = '127.0.0.1'
-PID_FILE = '.server_pid'
-LOG_FILE = 'server.log'
+PID_FILE_NAME = '.server_pid'
+LOG_FILE_NAME = 'server.log'
+
+# 计算项目根目录（script所在目录的上一级）
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+PID_FILE = os.path.join(PROJECT_ROOT, PID_FILE_NAME)
+LOG_FILE = os.path.join(PROJECT_ROOT, LOG_FILE_NAME)
 
 class ServerManager:
     """服务器管理器"""
